@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="staic/js/jquery-3.7.0.js"></script>
+    <script src="staic/js/1.0.0_jquery-extendext.js"></script>
+    <script src="staic/js/doT.js"></script>
+    <link rel="stylesheet" href="staic/css/query-builder.default.min.css">
+    <script src="staic/js/query-builder.min.js"></script>
+</head>
+<body>
+    <div id="builder"></div>
+
+    <script>
+        $('#builder').queryBuilder({
+            filters: [
+                {
+                    id: 'id',
+                    label: 'ID',
+                    type: 'integer'
+                },
+                {
+                    id: 'userId',
+                    label: '用户ID',
+                    type: 'integer'
+                },
+                {
+                    id: 'name',
+                    label: '名称',
+                    type: 'string'
+                },
+                {
+                    id: 'create_time',
+                    label: '创建时间',
+                    type: 'datetime'
+                },
+                {
+                    id: 'type',
+                    label: '类型',
+                    input: 'select',
+                    values: {
+                        0: '类型0',
+                        1: '类型1'
+                    },
+                    operators: ['equal', 'not_equal']
+                }
+            ]
+        });
+    </script>
+</body>
+</html>

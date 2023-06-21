@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../staic/js/jquery-3.7.0.js"></script>
+    <script src="../staic/js/1.0.0_jquery-extendext.js"></script>
+    <script src="../staic/js/doT.js"></script>
+    <link rel="stylesheet" href="../staic/css/query-builder.default.min.css">
+    <script src="../staic/js/query-builder.min.js"></script>
+    <link rel="stylesheet" href="../staic/css/bootstrap.min.css">
+    <script src="../staic/js/bootstrap.min.js"></script>
+    <script src="../staic/js/query-builder.zh-CN.js"></script>
+    <script src="../staic/js/sql-parser.js"></script>
+    <script src="../staic/js/moment.min.js"></script>
+    
+</head>
+<body>
+    <div id="builder-basic" class="query-builder form-inline"></div>
+
+    <div class="btn-group">
+        <button id="btn-reset" class="btn btn-warning reset" data-target="basic">重置</button>
+        <button id="btn-set" class="btn btn-success set-json" data-target="basic">默认</button>
+        <button id="btn-get" class="btn btn-primary parse-json" data-target="basic">获取规则 rules</button>
+    </div>
+    <button id="btn-get-sql" class="btn btn-primary parse-json" data-target="basic">获取 SQL</button>
+    <div id="builder-rule"></div>
+    <script src="index.js"></script>
+</body>
+</html>
