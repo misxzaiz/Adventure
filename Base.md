@@ -1,3 +1,37 @@
+## 后端
+
+```java
+package org.example;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.example.mapper.ActCardResultMapper;
+import org.example.pojo.ActCardResult;
+import org.example.service.ActCardResultService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.List;
+
+@SpringBootTest
+public class SQLTest {
+    @Autowired
+    private ActCardResultMapper actCardResultMapper;
+
+    @Test
+    public void testApply(){
+        String sql = "NOT ( userId > 1004 AND type = 1)";
+        QueryWrapper<ActCardResult> wrapper = new QueryWrapper<>();
+        wrapper.apply(sql);
+        List<ActCardResult> actCardResultList = actCardResultMapper.selectList(wrapper);
+        System.out.println(actCardResultList);
+    }
+}
+```
+
+## 前端
+
+```java
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,20 +55,19 @@
     <div class="btn-group">
         <button id="btn-reset" class="btn btn-warning reset" data-target="basic">重置</button>
         <button id="btn-set" class="btn btn-success set-json" data-target="basic">默认</button>
-        <button id="btn-get" class="btn btn-primary parse-json" data-target="basic">获取规则 rules</button>
+        <button id="btn-get-sql" class="btn btn-primary parse-json" data-target="basic">获取 SQL</button>
     </div>
-    <button id="btn-get-sql" class="btn btn-primary parse-json" data-target="basic">获取 SQL</button>
     <div id="builder-rule"></div>
     <!-- <script src="index.js"></script> -->
     <script>
         var rules_basic = {
             condition: 'AND',
             rules: [{
-            id: 'id',
-            operator: 'is_not_null'
+                id: 'id',
+                operator: 'is_not_null'
             }]
         };
-        
+
         $('#builder-basic').queryBuilder({
             plugins: [
                 'bt-tooltip-errors',
@@ -75,37 +108,26 @@
                     },
                     operators: ['equal', 'not_equal']
             }],
-        
+
             rules: rules_basic
         });
-        
+
         $('#btn-reset').on('click', function() {
-            $('#builder-basic').queryBuilder('reset');
-        });
-        
-        $('#btn-set').on('click', function() {
-            $('#builder-basic').queryBuilder('setRules', rules_basic);
+        $('#builder-basic').queryBuilder('reset');
         });
 
-        $('#btn-get').on('click', function() {
-            var result = $('#builder-basic').queryBuilder('getRules');
-            
-            if (!$.isEmptyObject(result)) {
-            //   alert(JSON.stringify(result, null, 2));
-            console.log(JSON.stringify(result, null, 2))
-            //   document.querySelector("#builder-rule").innerText = JSON.stringify(result, null, 2)
-            }
+        $('#btn-set').on('click', function() {
+        $('#builder-basic').queryBuilder('setRules', rules_basic);
         });
+
 
         $('#btn-get-sql').on('click', function() {
-            // var result = $('#builder-basic').queryBuilder('getSQL', 'question_mark');
-            // if (result.sql.length) {
-            //     alert(result.sql + '\n\n' + JSON.stringify(result.params, null, 2));
-            // }
             var result = $('#builder-basic').queryBuilder('getSQL', null);
-            console.log(result)
             alert(result.sql);
         });
     </script>
+
 </body>
 </html>
+```
+

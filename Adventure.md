@@ -1,3 +1,7 @@
+[(113条消息) mybatis-Plus 之 apply 拼接SQL_mybatisplus 拼接sql_辉常努腻的博客-CSDN博客](https://blog.csdn.net/qq_43900956/article/details/121167451)
+
+
+
 ## act_card_result 数据表（db数据库）
 
 ```java
@@ -15,5 +19,10 @@ INSERT INTO act_card_result (userId, name, type) VALUES
 (1003, '王五', 1),
 (1004, '赵六', 0),
 (1005, '钱七', 1);
+```
+
+### 实体类
+
+```java
 ```
 

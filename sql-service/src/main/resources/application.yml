@@ -1,0 +1,17 @@
+server:
+  port: 80
+spring:
+  application:
+    name: sql-service
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/db?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 1234
+  jackson:
+    default-property-inclusion: non_null # JSON 处理时忽略非空字段
+mybatis-plus:
+  type-aliases-package: org.example.entity # 别名扫描包
+logging:
+  level:
+    org.example: debug
