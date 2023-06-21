@@ -14,6 +14,7 @@
     <script src="../staic/js/query-builder.zh-CN.js"></script>
     <script src="../staic/js/sql-parser.js"></script>
     <script src="../staic/js/moment.min.js"></script>
+    
 </head>
 <body>
     <div id="builder-basic" class="query-builder form-inline"></div>
@@ -90,6 +91,7 @@
         $('#btn-get-sql').on('click', function() {
             var result = $('#builder-basic').queryBuilder('getSQL', null);
             alert(result.sql);
+            
         });
     </script>
 

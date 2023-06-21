@@ -1,8 +1,8 @@
 var rules_basic = {
   condition: 'AND',
   rules: [{
-  id: 'id',
-  operator: 'is_not_null'
+      id: 'id',
+      operator: 'is_not_null'
   }]
 };
 
@@ -50,21 +50,15 @@ $('#builder-basic').queryBuilder({
   rules: rules_basic
 });
 
-$('#btn-reset').on('click', function() {
-  $('#builder-basic').queryBuilder('reset');
-});
+// $('#btn-reset').on('click', function() {
+//   $('#builder-basic').queryBuilder('reset');
+// });
 
-$('#btn-set').on('click', function() {
-  $('#builder-basic').queryBuilder('setRules', rules_basic);
-});
+// $('#btn-set').on('click', function() {
+//   $('#builder-basic').queryBuilder('setRules', rules_basic);
+// });
 
-
-$('#btn-get-sql').on('click', function() {
-  // var result = $('#builder-basic').queryBuilder('getSQL', 'question_mark');
-  // if (result.sql.length) {
-  //     alert(result.sql + '\n\n' + JSON.stringify(result.params, null, 2));
-  // }
-  var result = $('#builder-basic').queryBuilder('getSQL', null);
-  console.log(result)
-  alert(result.sql);
-});
+// $('#btn-get-sql').on('click', function() {
+//   var result = $('#builder-basic').queryBuilder('getSQL', null);
+//   alert(result.sql);
+// });
