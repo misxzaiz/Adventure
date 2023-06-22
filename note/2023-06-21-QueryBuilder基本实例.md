@@ -1,5 +1,7 @@
 # QueryBuilder
 
+ https://querybuilder.js.org/ 
+
 ## 实例
 
 ### 1. html

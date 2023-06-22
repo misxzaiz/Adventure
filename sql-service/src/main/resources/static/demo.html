@@ -27,16 +27,6 @@
     <link rel="stylesheet" href="index.css">
     <!-- 导出excel -->
     <script src="./static/js/dist_xlsx.full.min.js"></script>
-    <style>
-        body {
-            background-image: url("./img/background4.webp");
-            background-size: cover;
-            height: 700px;
-            background-position: center center;
-            background-repeat: repeat-y;
-
-        }
-    </style>
 </head>
 
 <body>
@@ -46,15 +36,17 @@
         <div>
             <div class="btn-group">
                 <button @click="setDefault" class="btn btn-warning reset" data-target="basic">重置</button>
+                <!-- <button @click="reset" class="btn btn-success set-json" data-target="basic">重置</button> -->
                 <button @click="querySQL" class="btn btn-primary parse-json" data-target="basic">查询</button>
                 <button class="btn btn-success set-json" data-target="basic" @click="exportTableToExcel()">保存为Excel</button>
             </div>
         </div>
         <br>
-        <div style="background-color: white;">
+        <div>
             <strong v-if="sql!=null">SQL：{{sql}}</strong>
         </div>
-
+        <br>
+        <!-- <el-button type="primary" @click="exportTableToExcel()">保存为Excel</el-button> -->
         <el-table
             :data="actCardResults"
             border
@@ -67,14 +59,22 @@
                 :align="h.align"
             >
             </el-table-column>
+            <!-- <el-table-column align="center" label="操作" :width="150">
+                <template #default="{ row }">
+                    <el-button link type="primary" size="small" @click="edit(row)"
+                      >编辑</el-button
+                    >
+                    <el-button link type="primary" size="small" @click="delete(row)">删除</el-button>
+                  </template>
+            </el-table-column> -->
         </el-table>
+
     </div>
 
     <script src="index.js"></script>
     <script>
 
-        // let reqUrl = "http://127.0.0.1"
-        let reqUrl = ""
+        let reqUrl = "http://127.0.0.1"
         const App = {
             data() {
                 return {
@@ -87,42 +87,33 @@
                         {prop: "createTime", text: "createTime", width: 0, align: "center"},
                         {prop: "type", text: "type", width: 0, align: "center"}
                     ],
-                    sqlDto: {
-                        sql: null,
-                        sqlTemplate: null,
-                        parameters: []
-                    }
                 }
             },
             methods: {
+                reset() {
+                    $('#builder-basic').queryBuilder('reset');
+                },
                 setDefault() {
                     $('#builder-basic').queryBuilder('setRules', rules_basic);
                 },
                 querySQL() {
                     let that = this;
-                    // 获取 sql
                     var result = $('#builder-basic').queryBuilder('getSQL', null);
-                    // 获取 sqlTemplate 和 parameters
-                    var result_question_mark = $('#builder-basic').queryBuilder('getSQL', 'question_mark');
-                    // 将获取到的 sql 存储到组件实例的属性中
                     this.sql = result.sql
-                    // 将获取到的 sql 模板、参数存储到 sqlDto 对象中的属性中
-                    this.sqlDto.sql = result.sql
-                    this.sqlDto.sqlTemplate = result_question_mark.sql
-                    this.sqlDto.parameters = result_question_mark.params   
-                    // 发起异步请求，查询符合条件的数据
-                    axios.post(reqUrl + "/actCardResult/queryBuilder",this.sqlDto)
+                    axios.get(reqUrl + "/actCardResult/queryBuilder/"+result.sql)
                         .then(res => {
-                            if(res.data.errorMsg!=null) {
-                                alert("参数错误！")
-                            }else {
-                                that.actCardResults = res.data.data
-                            }
-                            
+                            console.log(res);
+                            that.actCardResults = res.data.data
                         })
                         .catch(err => {
                             console.log(err);
                         });
+                },
+                edit(row) {
+                    console.log('点击了编辑按钮，当前行数据的ID是：', row.id);
+                },
+                delete(row) {
+                    console.log('点击了删除按钮，当前行数据是：', row);
                 },
                 exportTableToExcel() {
                     // 获取 el-table 中的 HTML 元素

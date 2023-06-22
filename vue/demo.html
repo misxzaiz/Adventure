@@ -27,16 +27,6 @@
     <link rel="stylesheet" href="index.css">
     <!-- 导出excel -->
     <script src="./static/js/dist_xlsx.full.min.js"></script>
-    <style>
-        body {
-            background-image: url("./img/background4.webp");
-            background-size: cover;
-            height: 700px;
-            background-position: center center;
-            background-repeat: repeat-y;
-
-        }
-    </style>
 </head>
 
 <body>
@@ -51,10 +41,10 @@
             </div>
         </div>
         <br>
-        <div style="background-color: white;">
+        <div>
             <strong v-if="sql!=null">SQL：{{sql}}</strong>
         </div>
-
+        <br>
         <el-table
             :data="actCardResults"
             border
