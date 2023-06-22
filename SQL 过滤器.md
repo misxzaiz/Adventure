@@ -191,7 +191,7 @@ sqlDto = {
                 }
                 continue;
             }
-            
+
             if (classType.containsKey(template)){
                 String type = classType.get(template);
                 classWithBETTWEEN = type;
