@@ -15,6 +15,7 @@ public class ActCardResult {
     @TableField(value = "userId")
     private Integer userId;
     private String name;
+    @TableField(value = "createTime")
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createTime;
     private Integer type;

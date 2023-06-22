@@ -33,7 +33,7 @@ $('#builder-basic').queryBuilder({
           type: 'date',
           operators: ['between', 'not_between', 'less', 'less_or_equal', 'greater', 'greater_or_equal', 'is_null', 'is_not_null'],
           validation: {
-          format: 'yyyy-mm-dd hh:ii:ss'
+          format: 'yyyy-mm-dd'
       }
       }, {
           id: 'type',
@@ -41,8 +41,8 @@ $('#builder-basic').queryBuilder({
           type: 'integer',
           input: 'select',
           values: {
-              0: '类型1',
-              1: '类型2'
+              0: '类型0',
+              1: '类型1'
           },
           operators: ['equal', 'not_equal']
   }],
