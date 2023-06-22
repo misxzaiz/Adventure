@@ -162,22 +162,39 @@ sqlDto = {
 
 ```java
     private boolean verifySql(SQLDto sqlDto){
-        // 1. 获取 SQL 语句中的参数列表
+        // 参数
         List<String> parameters = sqlDto.getParameters();
         int size = parameters.size();
         log.info("【parameters】{}",parameters);
         int count = 0; // 记录当前的参数
-        // 2. 对 SQL 语句进行切割，获取参数名
+        // 切割字符串
         String[] sqlTemplates = cutSqlTemplate(sqlDto.getSqlTemplate());
-        // 3. 获取对应实体类中的属性类型
+        // 获取实体类的属性及参数
         Map<String, String> classType = getClassTypeReflect(ActCardResult.class);
-        // 4. 遍历sqlTemplates，以其元素为map的key，如果存在，就进行处理
+        // 遍历sqlTemplates，以其元素为map的key，如果存在，就进行处理
+        // 如果是 BETWEEN ，那么他会有两个参数
+        // 记录上一个值类型，在template.equals("BETWEEN")时使用
+        String classWithBETTWEEN = null;
         for (String template : sqlTemplates){
             if (template.equals("NULL")){
                 count--;
             }
+            // 如果存在BETWEEN，继续校验下一个参数
+            if (template.equals("BETWEEN")){
+                if (count<size){
+                    String parameter = parameters.get(count);
+                    boolean b = verifyParameter(classWithBETTWEEN, parameter);
+                    if (Validator.isFalse(b)){
+                        return false;
+                    }
+                    count++;
+                }
+                continue;
+            }
+            
             if (classType.containsKey(template)){
                 String type = classType.get(template);
+                classWithBETTWEEN = type;
                 log.info("【type】{}",type);
                 // 获取参数
                 if (count<size){
