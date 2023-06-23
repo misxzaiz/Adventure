@@ -38,12 +38,19 @@ public class ActCardResultServiceImpl extends ServiceImpl<ActCardResultMapper, A
         if (Validator.isFalse(b)){
             return Result.fail("参数错误");
         }
+
         log.info("【SQLDto】{}",sqlDto);
         QueryWrapper<ActCardResult> wrapper = new QueryWrapper<>();
         wrapper.apply(sqlDto.getSql());
-        List<ActCardResult> actCardResultList = actCardResultMapper.selectList(wrapper);
-        System.out.println(actCardResultList);
-        return Result.ok(actCardResultList,"获取成功！");
+
+        try {
+            List<ActCardResult> actCardResultList = actCardResultMapper.selectList(wrapper);
+            log.info("【actCardResultList】{}", actCardResultList);
+            return Result.ok(actCardResultList, "获取成功！");
+        } catch (Exception e) {
+            log.error("数据库查询异常：{}", e.getMessage());
+            return Result.fail("数据库查询异常");
+        }
     }
 
     /**

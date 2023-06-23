@@ -26,9 +26,11 @@
 
 ## 三、效果
 
-![image-20230622125344815](assets/image-20230622125344815.png)
+![image-20230622182022637](assets/image-20230622182022637.png)
 
-![image-20230622125344815](assets/image-20230622125821638.png)
+![image-20230622182033889](assets/image-20230622182033889.png)
+
+
 
 ## 四、数据表
 
@@ -278,12 +280,19 @@ sqlDto = {
         if (Validator.isFalse(b)){
             return Result.fail("参数错误");
         }
+
         log.info("【SQLDto】{}",sqlDto);
         QueryWrapper<ActCardResult> wrapper = new QueryWrapper<>();
         wrapper.apply(sqlDto.getSql());
-        List<ActCardResult> actCardResultList = actCardResultMapper.selectList(wrapper);
-        System.out.println(actCardResultList);
-        return Result.ok(actCardResultList,"获取成功！");
+
+        try {
+            List<ActCardResult> actCardResultList = actCardResultMapper.selectList(wrapper);
+            log.info("【actCardResultList】{}", actCardResultList);
+            return Result.ok(actCardResultList, "获取成功！");
+        } catch (Exception e) {
+            log.error("数据库查询异常：{}", e.getMessage());
+            return Result.fail("数据库查询异常");
+        }
     }
 ```
 
@@ -352,7 +361,7 @@ public class ActCardResultController {
 
 | 方法                 | 说明                                                         |
 | -------------------- | ------------------------------------------------------------ |
-| setDefault()         | 修改 queryBuilder 的查询调节为默认值，这里是 **id IS NOT NULL** |
+| setDefault()         | 修改 queryBuilder 的查询规则为默认值，这里是 **id IS NOT NULL** |
 | querySQL()           | 根据 queryBuilder 的 SQL 使用 axios 进行查询                 |
 | exportTableToExcel() | 将查询结果输出为 excel 文件                                  |
 
